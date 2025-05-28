@@ -1,0 +1,56 @@
+:root {
+
+    --bg-x: 0;
+    --bg-y: 0;
+
+    font-family: sans-serif;
+
+    scroll-behavior: smooth;
+
+    background-image: url("static/img/bg-temp.png");
+    /* background-size: cover; */
+    background-position: 0px 0%;
+    background-repeat: no-repeat;
+}
+
+/* MAIN */
+
+* {
+    transition: all 0.2s;
+}
+
+body {
+    margin: 0;
+    font-family: "Figtree";
+    padding: 2rem;
+    color: #eeeeee;
+}
+
+h1 {
+    margin: 0;
+    font-size: 6rem;
+    color: #fff;
+}
+
+h2 {
+    font-size: 4rem;
+}
+
+#top-contents h2 {
+    font-size: 2rem;
+    font-style: italic;
+    font-weight: 100;
+    margin: 0;
+}
+
+#top {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.section,
+#top {
+    min-height: 100vh;
+}
