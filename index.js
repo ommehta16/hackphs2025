@@ -3,8 +3,7 @@ document.addEventListener("DOMContentLoaded", setTimeout.bind(this, () => docume
 document.querySelectorAll("h2").forEach(el => el.addEventListener("click", () => {
     window.location.hash = el.id;
     goToSection();
-})
-);
+}));
 
 function goToSection() {
     if (window.location.hash == "") return;
@@ -20,3 +19,87 @@ addEventListener("DOMContentLoaded", () => {
         if (el.href.includes("#")) el.addEventListener("click", setTimeout.bind(this, goToSection, 0)); // i still hate this
     });
 });
+
+const sectionBgs = new Map([ // x, y, zoom -- x, y is center
+    // [null, [0, 0, 1]],
+    ["bg-1", [0, 0, 4]],
+    ["bg-2", [-100, -800, 4]],
+    ["bg-3", [0, 0, 1]],
+    ["bg-4", [0, 0, 1]],
+    ["bg-5", [0, 0, 1]],
+]);
+
+const bottomBg = [0, 0, 1];
+
+addEventListener("scroll", () => {
+
+
+    const loc = window.scrollY;
+
+    /** @type {string | null} */
+    let above = null;
+
+    /** @type {string | null} */
+    let below = null;
+
+    /** @type {HTMLElement | null} */
+    let a = null;
+
+    /** @type {HTMLElement | null} */
+    let b = null;
+
+    for (const secDesc of sectionBgs) {
+        const secName = secDesc[0];
+        /** @type {HTMLElement} */
+        const sec = document.querySelector("." + secName);
+        if (!sec) continue;
+
+        const top = sec.getBoundingClientRect().top;
+        if (top <= 0) {
+            if (!a) {
+                a = sec;
+                above = secName;
+                continue;
+            }
+            if (top > a.getBoundingClientRect().top) {
+                a = sec;
+                above = secName;
+            }
+        }
+        else {
+            if (!b) {
+                b = sec;
+                below = secName;
+                continue;
+            }
+            if (top < b.getBoundingClientRect().top) {
+                b = sec;
+                below = secName;
+            }
+
+        }
+    }
+    const transform1 = above ? sectionBgs.get(above) : [0, 0, 1];
+    const transform2 = below ? sectionBgs.get(below) : bottomBg;
+
+    const top1 = a ? a.offsetTop : 0;
+    const top2 = b ? b.offsetTop : document.body.scrollHeight;
+
+    const h = top2 - top1;
+    const prog = (loc - top1) / h;
+    // console.log(prog);
+
+    // now lerp between transform1 and transform2 by prog
+
+    let transformNew = [0, 0, 0];
+    // console.log(a, b);
+    for (let i = 0; i < 3; i++) {
+        transformNew[i] = transform2[i] * prog + transform1[i] * (1 - prog);
+    }
+    document.documentElement.style.setProperty("--bg-x", `${transformNew[0]}px`);
+    document.documentElement.style.setProperty("--bg-y", `${transformNew[1]}px`);
+    document.documentElement.style.setProperty("--bg-zoom", `${transformNew[2]}`);
+
+    console.log(below);
+    // transform by transformNew
+})
