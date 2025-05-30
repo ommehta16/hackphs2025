@@ -1,7 +1,7 @@
 :root {
     --bg-aspect-ratio: 16/10;
-    --bg-x: 0px;
-    --bg-y: 0px;
+    --bg-x: 0%;
+    --bg-y: 0;
     --bg-zoom: 1;
 
     font-family: sans-serif;
@@ -18,14 +18,14 @@
 
 @media screen and (max-aspect-ratio:16/10) {
     :root {
-        background-position: calc(var(--bg-x) + 50vw - var(--bg-zoom)*50vh* 16/10) calc(var(--bg-y) + 50vh - var(--bg-zoom)*50vh);
+        background-position: calc(var(--bg-x) + 50vw - var(--bg-zoom)*50vh* 16/10) calc(50vh - (1) * var(--bg-zoom)*50vh);
     }
 }
 
 @media screen and (min-aspect-ratio:16/10) {
     :root {
         background-size: calc(var(--bg-zoom)*100vw);
-        background-position: calc(var(--bg-x) + 50vw - var(--bg-zoom)*50vw) calc(var(--bg-y) + 50vh - var(--bg-zoom)*50vw*10/16);
+        background-position: calc(var(--bg-x) + 50vw - var(--bg-zoom)*50vw) calc(50vh - (1)*var(--bg-zoom)*50vw*10/16);
     }
 }
 
@@ -75,6 +75,7 @@ h2 {
 
 #top-contents {
     backdrop-filter: blur(4px);
+    background: rgba(0, 0, 0, 0.165);
     padding: 1rem;
     border-radius: 1rem;
 }

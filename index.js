@@ -23,7 +23,7 @@ addEventListener("DOMContentLoaded", () => {
 const sectionBgs = new Map([ // x, y, zoom -- x, y is center
     // [null, [0, 0, 1]],
     ["bg-1", [0, 0, 4]],
-    ["bg-2", [-100, -800, 4]],
+    ["bg-2", [-10, -50, 4]], // x and y are -50 to 50 OR 0 to 100 OR -1 to 1 OR 0 to 1 OR -100 to 100 ?
     ["bg-3", [0, 0, 1]],
     ["bg-4", [0, 0, 1]],
     ["bg-5", [0, 0, 1]],
@@ -103,8 +103,8 @@ addEventListener("scroll", () => {
     /**
      * @todo make this specify change in terms of % of the image x/% of the image y instead of px (translate happens BEFORE zoom, so ) 
      */
-    document.documentElement.style.setProperty("--bg-x", `${transformNew[0]}px`);
-    document.documentElement.style.setProperty("--bg-y", `${transformNew[1]}px`);
+    document.documentElement.style.setProperty("--bg-x", `${transformNew[0]}%`);
+    document.documentElement.style.setProperty("--bg-y", `${transformNew[1]}/50`);
     document.documentElement.style.setProperty("--bg-zoom", `${transformNew[2]}`);
 
     // console.log(below);
