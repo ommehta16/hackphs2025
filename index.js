@@ -28,6 +28,9 @@ const sectionBgs = new Map([ // x, y, zoom -- x, y is center
     ["bg-4", [0, 0, 1]],
     ["bg-5", [0, 0, 1]],
 ]);
+/**
+     * @todo make this specify change in terms of % of the image x/% of the image y instead of px (translate happens BEFORE zoom, so ) 
+     */
 
 const bottomBg = [0, 0, 1];
 
@@ -96,10 +99,14 @@ addEventListener("scroll", () => {
     for (let i = 0; i < 3; i++) {
         transformNew[i] = transform2[i] * prog + transform1[i] * (1 - prog);
     }
+
+    /**
+     * @todo make this specify change in terms of % of the image x/% of the image y instead of px (translate happens BEFORE zoom, so ) 
+     */
     document.documentElement.style.setProperty("--bg-x", `${transformNew[0]}px`);
     document.documentElement.style.setProperty("--bg-y", `${transformNew[1]}px`);
     document.documentElement.style.setProperty("--bg-zoom", `${transformNew[2]}`);
 
-    console.log(below);
+    // console.log(below);
     // transform by transformNew
 })
